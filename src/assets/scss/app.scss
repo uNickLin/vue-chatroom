@@ -1,0 +1,139 @@
+@import '~bulma';
+
+html, body{
+	background: #888;
+}
+
+@mixin flex ($alignItem: center, $justifyContent: center) {
+	display: flex;
+	align-items: $alignItem;
+	justify-content: $justifyContent;
+}
+
+#chatroom{
+	.main_pannel{
+		margin: auto;
+		width: 600px;
+		// border: 1px solid #aaa;
+		border-radius: 5px;
+		overflow: hidden;
+		.pannel_head{
+			flex-direction: column;
+			padding: 0 10px;
+			background: #333;
+
+			@include flex(flex-start, flex-start);
+			.pannel_head_controls{
+				padding: 5px 0;
+				width: fit-content;
+
+				@include flex;
+				i{
+					display: inline-block;
+					margin-right: 8px;
+					width: 12px;
+					height: 12px;
+					border-radius: 50%;
+					cursor: pointer;
+					&.close{
+						background: #ED6B5F;
+					}
+					&.min{
+						background: #F6C351;
+					}
+					&.max{
+						background: #62C755;
+					}
+				}
+			}
+			.pannel_head_user{
+				padding: 5px 0;
+
+				@include flex;
+				.pannel_head_user_avatar{
+					margin-right: 20px;
+					width: 60px;
+					height: 60px;
+					border-radius: 50%;
+					background-image: url('/static/avatar.jpg');
+					background-position: center;
+					background-size: cover;
+				}
+				.pannel_head_user_name{
+					h4{
+						color: white;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		.pannel_body{
+			max-height: 700px;
+			overflow: scroll;
+			background: rgb(126, 208, 247);
+			.message_block{
+				.message_container{
+					padding: 10px;
+					@include flex(flex-start, flex-start);
+					margin-bottom: 10px;
+					.massage_other_avatar{
+						margin-right: 15px;
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+						background-image: url('/static/avatar.jpg');
+						background-position: center;
+						background-size: cover;
+					}
+					.massage_content{
+							@include flex(flex-start);
+							flex-direction: column;
+						.massage_other_name{
+							margin-bottom: 5px;
+							h6{
+								font-size: 12px;
+							}
+						}
+						.massage_text{
+							@include flex(flex-end);
+							p{
+								font-size: 14px;
+								background: white;
+								border-radius: 20px;
+								padding: 5px 14px;
+								margin-right: 10px;
+							}
+							span.time{
+								font-size: 10px;
+							}
+						}
+					}
+				}
+				&.my_msg{
+					.message_container{
+						justify-content: flex-end;
+						.massage_text{
+							flex-direction: row-reverse;
+							p{
+								margin-right: 0;
+								margin-left: 10px;
+								background: rgb(131, 236, 75);
+							}
+						}
+					}
+				}
+			}
+		}
+		.pannel_footer{
+			padding: 10px;
+			background-color: white;
+			#msg_input{
+				resize: none;
+				width: 100%;
+				height: 80px;
+				border: none;
+				outline: none;
+			}
+		}
+	}
+}
