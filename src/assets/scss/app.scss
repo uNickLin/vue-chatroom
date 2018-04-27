@@ -10,16 +10,42 @@ html, body{
 	justify-content: $justifyContent;
 }
 
+#app{
+	margin-top: 0;
+}
+
 #chatroom{
+	#set_name_modal{
+		position: fixed;
+		z-index: 5;
+		width: 100%;
+		height: 100%;
+		background: rgba(#333, 1);
+		transition: .3s;
+
+		@include flex;
+		.set_name_container{
+			padding: 20px;
+			border-radius: 5px;
+			background: white;
+		}
+		&.close{
+			opacity: 0;
+			pointer-events: none;
+		}
+	}
 	.main_pannel{
-		margin: auto;
-		width: 600px;
-		// border: 1px solid #aaa;
-		border-radius: 5px;
 		overflow: hidden;
+		margin: auto;
+		margin-top: 50px;
+		min-width: 300px;
+		max-width: 600px;
+		width: 100%;
+		padding: 0 20px;
 		.pannel_head{
 			flex-direction: column;
 			padding: 0 10px;
+			border-radius: 5px 5px 0 0;
 			background: #333;
 
 			@include flex(flex-start, flex-start);
@@ -68,14 +94,15 @@ html, body{
 			}
 		}
 		.pannel_body{
-			max-height: 700px;
 			overflow: scroll;
+			height: 500px;
 			background: rgb(126, 208, 247);
 			.message_block{
 				.message_container{
-					padding: 10px;
-					@include flex(flex-start, flex-start);
 					margin-bottom: 10px;
+					padding: 10px;
+
+					@include flex(flex-start, flex-start);
 					.massage_other_avatar{
 						margin-right: 15px;
 						width: 40px;
@@ -86,8 +113,9 @@ html, body{
 						background-size: cover;
 					}
 					.massage_content{
-							@include flex(flex-start);
 							flex-direction: column;
+
+							@include flex(flex-start);
 						.massage_other_name{
 							margin-bottom: 5px;
 							h6{
@@ -97,11 +125,14 @@ html, body{
 						.massage_text{
 							@include flex(flex-end);
 							p{
-								font-size: 14px;
-								background: white;
-								border-radius: 20px;
-								padding: 5px 14px;
 								margin-right: 10px;
+								padding: 5px 14px;
+								max-width: 200px;
+								border-radius: 20px;
+								background: white;
+								text-align: left;
+								word-break: break-all;
+								font-size: 14px;
 							}
 							span.time{
 								font-size: 10px;
@@ -126,13 +157,14 @@ html, body{
 		}
 		.pannel_footer{
 			padding: 10px;
+			border-radius: 0 0 5px 5px;
 			background-color: white;
 			#msg_input{
-				resize: none;
 				width: 100%;
 				height: 80px;
-				border: none;
 				outline: none;
+				border: none;
+				resize: none;
 			}
 		}
 	}

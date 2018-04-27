@@ -1,5 +1,12 @@
 <template lang="pug">
   main#chatroom
+    #set_name_modal(:class='hasName ? "close" : ""')
+      .set_name_container
+        .set_name_head
+          p 請輸入名稱
+        form.set_name_body
+          input(type="text", v-model='userName', required)
+          button(@click.prevent='setName') 確定
     .container
       .main_pannel
         .pannel_head
@@ -11,7 +18,6 @@
             .pannel_head_user_avatar
             .pannel_head_user_name
               h4 {{userName}}
-              //- button(@click='setName')
         .pannel_body
           template(v-for='msg in msgList')
             .message_block.other_msg(v-if='msg.userName !== userName')
@@ -41,11 +47,15 @@
     name: 'ChatRoom',
     data () {
       return {
-        userName: 'Nick',
-        msgList: []
+        userName: '',
+        msgList: [],
+        hasName: false
       }
     },
     methods: {
+      setName() {
+        this.hasName = true
+      },
       getTime() {
         const now = new Date();
         const hours = now.getHours();
@@ -76,13 +86,36 @@
       
         document.querySelector('#msg_input').value = ''
         e.preventDefault()
+
+        // scroll msgbody to bottom
+        setTimeout(() => {
+          msgBody.scrollTop = msgBody.scrollHeight
+        }, 500)
       }
     },
     mounted() {
-      msgData.on('value', (logs) => {
-        this.msgList = logs.val()
-        console.log(logs.val())
+      const getData = () => {
+        return new Promise((res, rej) => {
+          res( 
+            msgData.on('value', (logs) => {
+              this.msgList = logs.val()
+              console.log(this.msgList)
+              for (const item in logs.val()) {
+                console.log(item)
+              }
+            })
+          )
+        })
+      }
+
+      getData().then(() => {
+        const msgBody =  document.querySelector('.pannel_body')
+        msgBody.scrollTop = msgBody.scrollHeight
       })
+    },
+    updated() {
+      const msgBody =  document.querySelector('.pannel_body')
+      msgBody.scrollTop = msgBody.scrollHeight
     }
   }
 </script>
