@@ -99,10 +99,8 @@
           res( 
             msgData.on('value', (logs) => {
               this.msgList = logs.val()
-              console.log(this.msgList)
-              for (const item in logs.val()) {
-                console.log(item)
-              }
+              // for (const item in logs.val()) {
+              // }
             })
           )
         })
